@@ -18,8 +18,22 @@ public class MinHeap {
 
     // O(log(n)) insert operation.
     public void insert(int element) {
-        arr.add(element);
-        siftUp(this.arr, this.arr.size() - 1, this.arr.size());
+        arr.add(element); // add at the end
+        siftUp(this.arr, this.arr.size() - 1, this.arr.size()); // sift that element up
+    }
+    
+    // O(log(n)) extractMin operation.
+    public int extractMin() {
+        if (arr.size() == 0) { // can't extract, empty heap
+            return Integer.MIN_VALUE;
+        }
+
+        int min = arr.get(0); // get the min
+        arr.set(0, arr.get(arr.size() - 1)); // replace min with last element
+        arr.remove(arr.size() - 1); // remove the duplicate last element
+        siftDown(arr, 0, arr.size()); // sift the last element down
+
+        return min;
     }
 
     public void print() {
@@ -52,7 +66,7 @@ public class MinHeap {
             arr.set(smallest, temp);
 
             // recurse for smallest 
-            siftDown(arr, index, n);
+            siftDown(arr, smallest, n);
         }
     }
 
